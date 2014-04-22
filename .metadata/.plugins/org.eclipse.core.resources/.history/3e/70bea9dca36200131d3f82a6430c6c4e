@@ -1,0 +1,68 @@
+package genericXMLProcessor.driver;
+
+import genericXMLProcessor.server.DeSerXML;
+import genericXMLProcessor.server.SerDeserXML;
+import genericXMLProcessor.server.SerXML;
+import genericXMLProcessor.util.MyAllTypesFirst;
+import genericXMLProcessor.util.MyAllTypesSecond;
+import genericXMLProcessor.util.ProxyCreator;
+import genericXMLProcessor.util.SerializableObject;
+import genericXMLProcessor.xmlSerDeser.XMLHandler;
+
+/**
+ * @author Abhishek Waichal
+ *
+ */
+public class Driver
+{
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+		ProxyCreator pc = new ProxyCreator();
+
+		// create a proxy
+		SerDeserXML serDeserRef = (SerDeserXML) pc.createProxy(new Class[] {
+				SerXML.class, DeSerXML.class
+				}, new XMLHandler());
+
+		
+		
+		// invoke a method on the proxy
+
+		SerializableObject myF = new MyAllTypesFirst(9, "Nine", 99.9, 999, 'N');
+		SerializableObject myFcopy;
+
+		((SerXML) serDeserRef).writeXML(myF, "myAllTypesF.txt");
+
+		// rest of the code for invoking methods on other interfaces using the proxy reference
+		myFcopy =((DeSerXML) serDeserRef).readXML("myAllTypesF.txt");		
+		
+		// compare and confirm that the serialized and deserialized objects are equal
+		if(myF.equals(myFcopy))
+			System.out.println("MyAllTypesFirst comparison successful !");
+		else
+			System.out.println("MyAllTypesFirst comparison unsuccessful !");
+		
+
+		
+		// invoke a method on the proxy
+
+		SerializableObject myS = new MyAllTypesSecond(1, "OneHundred", (float)11.1, (short)1, 'O');		
+		SerializableObject myScopy;
+		
+		((SerXML) serDeserRef).writeXML(myS, "myAllTypesS.txt");
+		
+		// rest of the code for invoking methods on other interfaces using the proxy reference
+		myScopy = ((DeSerXML) serDeserRef).readXML("myAllTypesS.txt");		
+		
+		// compare and confirm that the serialized and deserialized objects are equal
+		if(myS.equals(myScopy))
+			System.out.println("MyAllTypesSecond comparison successful !");
+		else
+			System.out.println("MyAllTypesSecond comparison unsuccessful !");
+		
+	}
+}

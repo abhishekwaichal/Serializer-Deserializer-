@@ -1,0 +1,175 @@
+/**
+ * 
+ */
+package genericXMLProcessor.util;
+
+/**
+ * @author Abhishek Waichal
+ * Class MyAllTypesSecond used for creating test Objects.
+ */
+public class MyAllTypesFirst extends SerializableObject{
+
+	int myInt;
+	String myString;
+	double myDouble;
+	long myLong;
+	char myChar;
+	
+	/**
+	 * 
+	 */
+	public MyAllTypesFirst(){
+		
+	}
+
+	
+	/**
+	 * @param myIntIN int
+	 * @param myStringIN String
+	 * @param myDoubleIN double
+	 * @param myLongIN long
+	 * @param myCharIN char
+	 */
+	public MyAllTypesFirst(int myIntIN, String myStringIN, double myDoubleIN, long myLongIN, char myCharIN){		
+		this.myChar = myCharIN;
+		this.myDouble = myDoubleIN;
+		this.myInt = myIntIN;
+		this.myLong = myLongIN;
+		this.myString = myStringIN;
+	}
+	
+	
+	/**
+	 * @return the value of myInt
+	 */
+	public int getMyInt() {
+		return myInt;
+	}
+
+	/**
+	 * @param myInt int 
+	 */
+	public void setMyInt(int myInt) {
+		this.myInt = myInt;
+	}
+
+	/**
+	 * @return String
+	 */
+	public String getMyString() {
+		return myString;
+	}
+
+	/**
+	 * @param myString String 
+	 */
+	public void setMyString(String myString) {
+		this.myString = myString;
+	}
+
+	/**
+	 * @return the value of myDouble
+	 */
+	public double getMyDouble() {
+		return myDouble;
+	}
+
+	/**
+	 * @param myDouble 
+	 * @param myDouble, the value myDouble is set to
+	 */
+	public void setMyDouble(double myDouble) {
+		this.myDouble = myDouble;
+	}
+
+	/**
+	 * @return the value of myLong
+	 */
+	public long getMyLong() {
+		return myLong;
+	}
+
+	/**
+	 * @param myLong 
+	 * @param myLong, the value myLong is set to
+	 */
+	public void setMyLong(long myLong) {
+		this.myLong = myLong;
+	}
+
+	/**
+	 * @return the value of myChar
+	 */
+	
+	public char getMyChar() {
+		return myChar;
+	}
+
+	/**
+	 * @param myChar 
+	 * @param myChar, the value myChar is set to
+	 */
+	public void setMyChar(char myChar) {
+		this.myChar = myChar;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + myChar;
+		long temp;
+		temp = Double.doubleToLongBits(myDouble);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + myInt;
+		result = prime * result + (int) (myLong ^ (myLong >>> 32));
+		result = prime * result
+				+ ((myString == null) ? 0 : myString.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof MyAllTypesFirst)) {
+			return false;
+		}
+		MyAllTypesFirst other = (MyAllTypesFirst) obj;
+		if (myChar != other.myChar) {
+			return false;
+		}
+		if (Double.doubleToLongBits(myDouble) != Double
+				.doubleToLongBits(other.myDouble)) {
+			return false;
+		}
+		if (myInt != other.myInt) {
+			return false;
+		}
+		if (myLong != other.myLong) {
+			return false;
+		}
+		if (myString == null) {
+			if (other.myString != null) {
+				return false;
+			}
+		} else if (!myString.equals(other.myString)) {
+			return false;
+		}
+		return true;
+	}
+}

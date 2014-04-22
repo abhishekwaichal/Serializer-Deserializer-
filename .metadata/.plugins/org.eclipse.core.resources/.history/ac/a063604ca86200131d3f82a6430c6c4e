@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package genericXMLProcessor.util;
+
+/**
+ * @author Abhishek Waichal
+ *
+ */
+public class SerializableObject {
+
+}

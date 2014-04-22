@@ -1,0 +1,14 @@
+/**
+ * 
+ */
+package genericXMLProcessor.xmlSerDeser;
+
+import java.lang.reflect.InvocationHandler;
+
+/**
+ * @author Abhishek
+ *
+ */
+public class XMLHandler implements InvocationHandler {
+
+}

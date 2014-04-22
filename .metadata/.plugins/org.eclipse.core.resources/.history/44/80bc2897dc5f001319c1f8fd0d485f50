@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package genericXMLProcessor.xmlSerDeser;
+
+/**
+ * @author Abhishek
+ *
+ */
+public interface InvocationHandler {
+
+}

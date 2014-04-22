@@ -1,0 +1,74 @@
+
+<project name="genericXMLProcessor" default="compile" basedir=".">
+
+	<property name="build.sysclasspath" value="last" />
+	<property name="build.compiler" value="modern" />
+	<property name="src" value="src" />
+	<property name="BUILD" value="build" />
+	<property name="javadoc" value="javadoc" />
+	<property name="classes" value="${BUILD}/classes" />
+
+	<target name="compile" depends="genericXMLProcessor" />
+
+	<target name="clean">
+		<delete dir="${BUILD}" />
+		<delete>
+			<fileset defaultexcludes="false" dir="." includes="**/*~"/>
+			<fileset defaultexcludes="false" dir="${src}" includes="**/*~"/>
+		</delete>
+	</target>
+
+	<!-- Prepare target directories -->
+	<target name="prepare">
+		<mkdir dir="${BUILD}" />
+		<mkdir dir="${classes}" />
+		<mkdir dir="${javadoc}" />
+	</target>
+
+
+	<!-- ** means all subdirectories as well -->
+	<!-- * means all files in the current directory -->
+	<!-- for just java files use *.java -->
+
+	<target name="genericXMLProcessor" depends="prepare">
+		<javac srcdir="${src}" 
+			includes="genericXMLProcessor/**" 
+			excludes="**/package.html" 
+			destdir="${classes}" 
+			classpath="${classes}" 
+			debug="on" 
+			optimize="on" 
+			deprecation="off" />
+	</target>
+
+	<target name="jar">
+		<mkdir dir="${BUILD}/jar" />
+		<jar destfile="${BUILD}/jar/genericXMLProcessor.jar" basedir="${BUILD}/classes">
+			<manifest>
+				<attribute name="Main-Class" value="genericXMLProcessor.driver.Driver" />
+			</manifest>
+		</jar>
+	</target>
+
+
+	<target name="run" depends="jar">
+		<java jar="${BUILD}/jar/genericXMLProcessor.jar" fork="true">
+			<arg value="0" />
+		</java>
+	</target>
+
+	<target name="purgeArchives" depends="clean">
+		<delete file="./genericXMLProcessor.tar" />
+		<delete file="./genericXMLProcessor.tar.gz" />
+	</target>
+
+	<target name="tarzip" depends="purgeArchives">
+		<tar destfile="./genericXMLProcessor.tar" basedir="." />
+		<gzip destfile="./genericXMLProcessor.tar.gz" src="./genericXMLProcessor.tar" />
+		<delete file="./genericXMLProcessor.tar" />
+	</target>
+
+	<target name="javadoc" depends="prepare" description="generate documentation">
+		<javadoc sourcepath="${src}/genericXMLProcessor/" destdir="${javadoc}" />
+	</target>
+</project>

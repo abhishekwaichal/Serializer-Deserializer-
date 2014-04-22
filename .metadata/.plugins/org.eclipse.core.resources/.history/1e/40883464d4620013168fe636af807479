@@ -1,0 +1,87 @@
+package genericXMLProcessor.driver;
+
+import genericXMLProcessor.server.DeSerXML;
+import genericXMLProcessor.server.SerDeserXML;
+import genericXMLProcessor.server.SerXML;
+import genericXMLProcessor.util.MyAllTypesFirst;
+import genericXMLProcessor.util.MyAllTypesSecond;
+import genericXMLProcessor.util.ProxyCreator;
+import genericXMLProcessor.util.SerializableObject;
+import genericXMLProcessor.xmlSerDeser.XMLHandler;
+
+/**
+ * @author Abhishek Waichal
+ * 
+ * Driver class, contains main method, does the following:
+ * 
+ * create one instance each for MyAllTypesFirst and MyAllTypesSecond
+ * create Dynamic Proxy
+ * call writeXML with an instance of MyAllTypesFirst
+ * call readXML and compare the returned object with the one that was serialized
+ * compare the serialized and deserialized object
+ * call writeXML with an instance of MyAllTypesSecond
+ * call readXML and compare the returned object with the one that was serialized
+ * compare the serialized and deserialized object 
+ * 
+ */
+public class Driver
+{
+	private static int debugValue;
+	/**
+	 * @param args String
+	 */
+	public static void main(String[] args)
+	{
+		
+		debugValue = 0;
+
+		Debug.setDebugValue(debugValue);
+
+		System.out.println("ARGS: "+ args[0]);
+/*		if (args.length != 1) {
+			Debug.printDebug(2, "ERROR: Invalid number of arguments");
+			System.exit(0);
+		}
+*/
+//		Debug.setDebugValue(Integer.parseInt(args[0]));
+
+		if (Debug.getDebugValue() < 0 || Debug.getDebugValue() > 1) {
+			Debug.printDebug(2, "ERROR: Debug value must be 0 or 1");
+			System.exit(0);
+		}
+
+		
+		ProxyCreator pc = new ProxyCreator();
+
+		SerDeserXML serDeserRef = (SerDeserXML) pc.createProxy(new Class[] {
+				SerXML.class, DeSerXML.class
+				}, new XMLHandler());
+
+		
+		SerializableObject myF = new MyAllTypesFirst(9, "Nine", 99.9, 999, 'N');
+		SerializableObject myFret;
+
+		((SerXML) serDeserRef).writeXML(myF, "myAllTypesF.txt");
+
+		myFret =((DeSerXML) serDeserRef).readXML("myAllTypesF.txt");		
+		
+		if(myF.equals(myFret))
+			Debug.printDebug(0, "MyAllTypesFirst comparison successful !");
+		else
+			Debug.printDebug(0, "MyAllTypesFirst comparison unsuccessful !");
+
+		
+		SerializableObject myS = new MyAllTypesSecond(1, "OneHundred", (float)11.1, (short)1, 'O');		
+		SerializableObject mySret;
+		
+		((SerXML) serDeserRef).writeXML(myS, "myAllTypesS.txt");
+		
+		mySret = ((DeSerXML) serDeserRef).readXML("myAllTypesS.txt");		
+		
+		if(myS.equals(mySret))
+			Debug.printDebug(0, "MyAllTypesSecond comparison successful !");
+		else
+			Debug.printDebug(0, "MyAllTypesSecond comparison unsuccessful !");
+
+	}
+}

@@ -1,0 +1,28 @@
+/**
+ * 
+ */
+package genericXMLProcessor.xmlSerDeser;
+
+import genericXMLProcessor.SerDeser.Deserialize;
+import genericXMLProcessor.SerDeser.Serialize;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+/**
+ * @author Abhishek
+ *
+ */
+public class XMLHandler implements InvocationHandler {
+
+	@Override
+	public Object invoke(Object proxy, Method method, Object[] args)
+			throws Throwable {
+		if(method.getName().equals("writeXML")){
+			Serialize serialize = new Serialize((String)args[0]);
+		}else if(method.getName().equals("readXML")){
+			
+		}		
+		return null;
+	}
+}

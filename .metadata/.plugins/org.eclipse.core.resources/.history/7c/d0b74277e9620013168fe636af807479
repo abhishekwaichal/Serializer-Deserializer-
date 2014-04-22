@@ -1,0 +1,126 @@
+
+CS542 Design Patterns
+Fall 2013
+Assignment-5 README FILE
+
+Due Date: Thursday, December 12, 2013
+Submission Date: Thursday, December 12, 2013
+Grace Period Used This Assignment: 0 Days
+Grace Period Remaining: N/A
+Author(s): Abhishek Waichal
+e-mail(s): awaicha1@binghamton.edu
+
+
+PURPOSE:
+
+[
+  I have implemented this Assignment to create a generic XML serializer in which I'm using reflection and dynamic proxy principle.
+  
+  JAVADOC is created: genericXMLProcessor/javadoc/index.html
+]
+
+PERCENT COMPLETE:
+
+[
+ I believe, we have completed 100% of this Assignment.
+]
+
+PARTS THAT ARE NOT COMPLETE:
+
+[
+ N/A
+]
+
+BUGS:
+
+[
+ None
+]
+
+FILES:
+[
+  Driver.java			:-  This class contains the 'main' method.
+  Debug.java			:-  This class is used for logging purpose.
+  SerDeserXML.java		:-  This interface SerDeserXML, a tag interface for serialization and deserialization.   
+  SerXML.java 			:-  This interface to Serialize XML.   
+  DeserXML.java 		:-  This interface DeSerXML to deserialize XML.
+  MyAllTypesFirst.java 	:-  This class MyAllTypesFirst is used for creating test Objects.
+  MyAllTypesSecond.java :-  This Class MyAllTypesSecond is used for creating test Objects.
+  ProxyCreator.java 	:-  This 
+  SerializableObject	:-  This 
+  XMLHandler.java  		:-  This 
+  Deserialize.java		:-  This 
+  Serialize.java		:-  This 
+  DeserializeTypes.java	:-  This 
+]
+
+DEBUG VALUES:
+[
+ 0 - For Output
+ 1 - For checking all constructors called
+ 2 - For erroneous input
+]
+
+SAMPLE OUTPUT:
+[
+ bingsuns2% ant clean
+ Buildfile: build.xml
+
+clean:
+   [delete] Deleting directory /u0/users/5/awaicha1/542/A5/genericXMLProcessor/build
+
+BUILD SUCCESSFUL
+Total time: 1 second
+bingsuns2% ant compile
+Buildfile: build.xml
+
+prepare:
+    [mkdir] Created dir: /u0/users/5/awaicha1/542/A5/genericXMLProcessor/build
+    [mkdir] Created dir: /u0/users/5/awaicha1/542/A5/genericXMLProcessor/build/classes
+
+genericXMLProcessor:
+    [javac] Compiling 8 source files to /u0/users/5/awaicha1/542/A5/genericXMLProcessor/build/classes
+
+compile:
+
+BUILD SUCCESSFUL
+Total time: 6 seconds
+bingsuns2% ant run
+Buildfile: build.xml
+
+jar:
+      [jar] Building jar: /u0/users/5/awaicha1/542/A5/genericXMLProcessor/build/jar/genericXMLProcessor.jar
+
+run:
+    [java] MyAllTypesFirst comparison successful !
+    [java] MyAllTypesSecond comparison successful !
+
+TO COMPILE:
+[
+ gunzip waichal_abhishek_assign5.tar.gz
+ tar -xvf waichal_abhishek_assign5.tar
+ cd abhishek_waichal
+ cd genericXMLProcessor
+ ant compile
+ ant run
+]
+
+TO RUN:
+[
+   ant run
+]
+
+EXTRA CREDIT:
+[
+ N/A
+]
+
+
+BIBLIOGRAPHY:
+This serves as evidence that we are in no way intending Academic Dishonesty.
+<Abhishek Waichal>
+
+[
+	. JAVA API Documentation (http://docs.oracle.com/javase/7/docs/api/)
+	. Complete Reference - JAVA
+]

@@ -1,0 +1,144 @@
+/**
+ * 
+ */
+package genericXMLProcessor.SerDeser;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+/**
+ * @author Abhishek
+ *
+ */
+public class Deserialize {
+
+	public ArrayList<Object> objectList ;	
+	private FileReader in = null; 
+	private String currentDirectory = System.getProperty("user.dir");
+	private String FilePath;
+	private BufferedReader br = null;
+	
+	/**
+	 *  Constructor 
+	 * @param args TODO
+	 */
+	public Deserialize(String args) {
+		
+//		Debug.printDebug(1, "In Deserialize Class's Constructor");		
+		objectList = new ArrayList<Object>();
+		
+//		FilePath = "//src//" + args;
+		FilePath = "\\src\\" + args;
+//		System.out.println(currentDirectory  + FilePath);
+		
+		
+		try {
+			in = new FileReader(currentDirectory  + FilePath);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		br = new BufferedReader(in);
+
+	}
+
+	public Object deserializeFile(){
+
+		int i = 0;
+		int j = 0;
+		int k = 0;
+
+		String tempString;
+		CharSequence className;
+
+		DeserializeTypes deserializeTypes = new DeserializeTypes();
+
+		String objClass[] = new String[128];
+		String memName[] = new String[128];
+		String memType[] = new String[128];
+		String memValue[] = new String[128];
+
+		String classLine = null;
+		String memLine = null;
+
+		int temp;
+		int temp1;
+		try {
+			while (true) {
+
+				tempString = br.readLine();
+
+				if (tempString == null)
+					break;
+				else if (tempString.equalsIgnoreCase("<DPSerialization>"))
+					classLine = br.readLine();
+
+				temp = classLine.indexOf("\"");
+				className = classLine.subSequence(temp + 1,
+						classLine.lastIndexOf("\""));
+				objClass[j] = className.toString();
+//				System.out.println("!!!!!!!"+objClass[j]+"!!!!!!!!!!!!");
+				objectList.add(Class.forName(objClass[j]).newInstance());
+
+				i = 0;
+
+				memLine = br.readLine();
+
+				while (true) {
+
+					temp = memLine.indexOf("xsd:") + 4;
+					temp1 = memLine.indexOf("\">");
+
+					memType[i] = memLine.substring(temp, temp1);
+
+					temp = memLine.indexOf("</");
+
+					memValue[i] = memLine.substring(temp1 + 2, temp);
+
+					memName[i] = memLine.substring(temp + 2,
+							memLine.length() - 1);
+
+					i++;
+
+					memLine = br.readLine();
+
+					if (memLine.contains("</complexType>"))
+						memLine = br.readLine();
+
+					if (memLine.contains("</DPSerialization>"))
+						break;
+				}
+
+
+				for (k = 0; k < i; k++) {
+					if (memType[k].equalsIgnoreCase("int"))
+						deserializeTypes.setInt(objectList.get(j), memValue[k], memName[k]);
+					if (memType[k].equalsIgnoreCase("float"))
+						deserializeTypes.setFloat(objectList.get(j), memValue[k], memName[k]);
+					if (memType[k].equalsIgnoreCase("long"))
+						deserializeTypes.setLong(objectList.get(j), memValue[k], memName[k]);
+					if (memType[k].equalsIgnoreCase("short"))
+						deserializeTypes.setShort(objectList.get(j), memValue[k], memName[k]);
+					if (memType[k].equalsIgnoreCase("char"))
+						deserializeTypes.setChar(objectList.get(j), memValue[k], memName[k]);
+					if (memType[k].equalsIgnoreCase("double"))
+						deserializeTypes.setDouble(objectList.get(j), memValue[k], memName[k]);
+					if (memType[k].equalsIgnoreCase("String"))
+						deserializeTypes.setString(objectList.get(j), memValue[k], memName[k]);
+				}
+				j++;
+			}
+			return objectList.get(0);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

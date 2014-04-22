@@ -1,0 +1,9 @@
+<DPSerialization>
+ <complexType xsi:type="genericXMLProcessor.util.MyAllTypesSecond">
+  <myIntS xsi:type="xsd:int">1</myIntS>
+  <myStringS xsi:type="xsd:string">OneHundred</myStringS>
+  <myFloatS xsi:type="xsd:float">11.1</myFloatS>
+  <myShortS xsi:type="xsd:short">1</myShortS>
+  <myCharS xsi:type="xsd:char">O</myCharS>
+ </complexType>
+</DPSerialization>

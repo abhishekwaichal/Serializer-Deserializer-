@@ -1,0 +1,18 @@
+/**
+ * 
+ */
+package genericXMLProcessor.server;
+
+import genericXMLProcessor.util.SerializableObject;
+
+/**
+ * @author Abhishek Waichal
+ *
+ */
+public interface SerXML extends SerDeserXML {
+	/**
+	 * @param myF
+	 * @param fileName
+	 */
+	void writeXML(SerializableObject myF, String fileName);
+}

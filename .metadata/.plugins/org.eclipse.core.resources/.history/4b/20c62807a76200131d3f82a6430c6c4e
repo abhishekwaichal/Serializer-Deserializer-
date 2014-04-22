@@ -1,0 +1,87 @@
+/**
+ * 
+ */
+package genericXMLProcessor.SerDeser;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+/**
+ * @author Abhishek Waichal
+ * Class Serialize use to serialize the Objects to an XML file.
+ */
+public class Serialize {
+
+	private static String filepath;
+	private String currentDirectory = System.getProperty("user.dir");
+	/**
+	 * 
+	 */
+	public PrintWriter writer = null;
+
+	/**
+	 * Constructor
+	 * @param args String
+	 */
+	public Serialize(String args){
+		
+//		filepath  = currentDirectory+"//src//"+args;
+		filepath  = currentDirectory+"\\src\\"+args;
+
+		try {
+			writer = new PrintWriter(filepath, "UTF-8");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	/**
+	 * @param ob Object, Object to be serialized
+	 */
+	public void serializeObject(Object ob) {
+
+		writer.println("<DPSerialization>");
+		writer.println(" <complexType xsi:type=\""
+				+ ob.getClass().toString().substring(6) + "\">");
+		Field fields[] = ob.getClass().getDeclaredFields();
+		Field tempField;
+		String value = null;
+		Method methods[];
+
+		for (int i = 0; i < fields.length; i++) {
+			tempField = fields[i];
+
+			methods = ob.getClass().getDeclaredMethods();
+
+			for (int q = 0; q < methods.length; q++)
+				if (methods[q].getName().contains("get")
+						&& methods[q].getReturnType().getName()
+								.contains(tempField.getType().getSimpleName())) {
+					try {
+						value = "" + methods[q].invoke(ob);
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
+					}
+				}
+			writer.println("  <" + tempField.getName() + " xsi:type=\"xsd:"
+					+ tempField.getType().getSimpleName().toLowerCase() + "\">" + value + "</"
+					+ tempField.getName() + ">");
+		}
+		writer.println(" </complexType>");
+		writer.println("</DPSerialization>");
+		writer.close();
+	}
+
+}

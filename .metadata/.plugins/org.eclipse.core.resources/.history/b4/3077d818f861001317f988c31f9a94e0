@@ -1,0 +1,161 @@
+/**
+ * 
+ */
+package genericXMLProcessor.util;
+
+/**
+ * @author Abhishek
+ *
+ */
+public class MyAllTypesSecond extends SerializableObject{
+
+	int myIntS;
+	String myStringS;
+	float myFloatS;
+	short myShortS;
+	char myCharS;
+
+	public MyAllTypesSecond(){
+		
+	}
+
+	
+	public MyAllTypesSecond(int myIntSIN, String myStringSIN, float myFloatS, short myShotSIN, char myCharSIN){		
+		this.myCharS = myCharSIN;
+		this.myFloatS = myFloatS;
+		this.myIntS = myIntSIN;
+		this.myShortS = myShotSIN;
+		this.myCharS = myCharSIN;
+	}
+	
+
+	
+	/**
+	 * @return the value of myIntS
+	 */
+	public int getMyIntS() {
+		return myIntS;
+	}
+	
+	/**
+	 * @param myIntS, the value myIntS is set to
+	 */
+	public void setMyIntS(int myIntS) {
+		this.myIntS = myIntS;
+	}
+	
+	/**
+	 * @return the value of myStringS
+	 */
+	public String getMyStringS() {
+		return myStringS;
+	}
+	
+	/**
+	 * @param myStringS, the value myStringS is set to
+	 */
+	public void setMyStringS(String myStringS) {
+		this.myStringS = myStringS;
+	}
+
+	/**
+	 * @return the value of myFloatS
+	 */
+	public float getMyFloatS() {
+		return myFloatS;
+	}
+	
+	/**
+	 * @param myFloatS, the value myFloatS is set to
+	 */
+	public void setMyFloatS(float myFloatS) {
+		this.myFloatS = myFloatS;
+	}
+
+	/**
+	 * @return the value of myShortS
+	 */
+	public short getMyShortS() {
+		return myShortS;
+	}
+	
+	/**
+	 * @param myShortS, the value myShortS is set to
+	 */
+	public void setMyShortS(short myShortS) {
+		this.myShortS = myShortS;
+	}
+
+	/**
+	 * @return the value of myCharS
+	 */
+	public char getMyCharS() {
+		return myCharS;
+	}
+	
+	/**
+	 * @param myCharS, the value myCharS is set to
+	 */
+	public void setMyCharS(char myCharS) {
+		this.myCharS = myCharS;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + myCharS;
+		result = prime * result + Float.floatToIntBits(myFloatS);
+		result = prime * result + myIntS;
+		result = prime * result + myShortS;
+		result = prime * result
+				+ ((myStringS == null) ? 0 : myStringS.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof MyAllTypesSecond)) {
+			return false;
+		}
+		MyAllTypesSecond other = (MyAllTypesSecond) obj;
+		if (myCharS != other.myCharS) {
+			return false;
+		}
+		if (Float.floatToIntBits(myFloatS) != Float
+				.floatToIntBits(other.myFloatS)) {
+			return false;
+		}
+		if (myIntS != other.myIntS) {
+			return false;
+		}
+		if (myShortS != other.myShortS) {
+			return false;
+		}
+		if (myStringS == null) {
+			if (other.myStringS != null) {
+				return false;
+			}
+		} else if (!myStringS.equals(other.myStringS)) {
+			return false;
+		}
+		return true;
+	}
+
+}
